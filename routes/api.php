@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,3 +25,8 @@ Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{user}', [UserController::class, 'update']);
 Route::delete('/users/{user}', [UserController::class, 'destroy']);
 
+Route::get('/profiles', [ProfileController::class, 'index']);
+Route::get('/profiles/{profile}', [ProfileController::class, 'show']);
+Route::post('/profiles', [ProfileController::class, 'store']);
+Route::put('/profiles/{profile}', [ProfileController::class, 'update']);
+Route::delete('/profiles/{profile}', [ProfileController::class, 'destroy']);

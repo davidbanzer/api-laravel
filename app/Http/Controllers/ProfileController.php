@@ -33,7 +33,25 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $profile = Profile::create([
+            'username' => $request->username,
+            'gender' => $request->gender,
+            'phone' => $request->phone,
+            'country' => $request->country,
+            'user_id' => $request->user_id
+        ]);
+        if($profile){
+            return response()->json([
+                'success' => true,
+                'message' => 'Profile Created',
+                'data' => $profile
+            ], 201);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Profile Failed to Save',
+            ], 409);
+        }
     }
 
     /**
@@ -41,7 +59,19 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        //
+        $profile = Profile::with('user')->where('id', $profile->id)->first();
+        if($profile){
+            return response()->json([
+                'success' => true,
+                'message' => 'Detail Profile',
+                'data' => $profile
+            ], 200);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Profile Not Found',
+            ], 404);
+        }
     }
 
     /**
@@ -57,7 +87,26 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        //
+        $profile = Profile::findOrFail($profile->id);
+        if($profile){
+            $profile->update([
+                'username' => $request->username ?? $profile->username,
+                'gender' => $request->gender ?? $profile->gender,
+                'phone' => $request->phone ?? $profile->phone,
+                'country' => $request->country ?? $profile->country,
+                'user_id' => $request->user_id
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Profile Updated',
+                'data' => $profile
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Profile Not Found',
+            ], 404);
+        }
     }
 
     /**
@@ -65,6 +114,18 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        //
+        $profile = Profile::findOrFail($profile->id);
+        if($profile){
+            $profile->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Profile Deleted',
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Profile Not Found',
+            ], 404);
+        }
     }
 }
