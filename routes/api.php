@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ServiceController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -46,3 +50,23 @@ Route::get('/comments/{comment}', [CommentController::class, 'show']);
 Route::post('/comments', [CommentController::class, 'store']);
 Route::put('/comments/{comment}', [CommentController::class, 'update']);
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
+
+// Companies
+Route::get('/companies', [CompanyController::class, 'index']);
+Route::get('/companies/{company}', [CompanyController::class, 'show']);
+Route::post('/companies', [CompanyController::class, 'store']);
+Route::put('/companies/{company}', [CompanyController::class, 'update']);
+Route::delete('/companies/{company}', [CompanyController::class, 'destroy']);
+
+// Services
+Route::get('/services', [ServiceController::class, 'index']);
+Route::get('/services/{service}', [ServiceController::class, 'show']);
+Route::post('/services', [ServiceController::class, 'store']);
+Route::put('/services/{service}', [ServiceController::class, 'update']);
+Route::delete('/services/{service}', [ServiceController::class, 'destroy']);
+
+// Attach Services to Companies
+Route::post('/companies/services', [CompanyController::class, 'attach']);
+
+// Detach Services from Companies
+Route::delete('/companies/services', [CompanyController::class, 'detach']);
