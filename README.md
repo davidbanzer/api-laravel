@@ -1,5 +1,9 @@
 # API Laravel
 API Realizada con Laravel, repasando los conceptos básicos.
+La API consta de:
+- Una relación 1 a 1 (User y Profile)
+- Una relación 1 a n (Post y Comment)
+- Una relación n a n (Company y Service)
 
 Comandos Artisan:
 1. Crear Controlador
